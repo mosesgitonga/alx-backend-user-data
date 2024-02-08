@@ -40,20 +40,15 @@ PII_FIELDS = ('name', 'email', 'ssn', 'password',
               'ip', 'last_login', 'user_agent')
 
 
-def get_db():
-    """connceting  to db  using env variables
-    """
-    logging.basicConfig(level=logging.DEBUG)
-    try:
-        connection = mysql.connector.connect(
-            user=os.getenv('PERSONAL_DATA_DB_USERNAME'),
-            host=os.getenv('PERSONAL_DATA_DB_HOST'),
-            password=os.getenv('PERSONAL_DATA_DB_PASSWORD'),
-            database=os.getenv('PERSONAL_DATA_DB_NAME')
-        )
-        return connection
-    except Exception as e:
-        logging.exception("An error occurred: %s", e)
+def get_db() -> mysql.connector.connection.MYSQLConnection:
+    """ Connection to MySQL environment """
+    db_connect = mysql.connector.connect(
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME')
+    )
+    return db_connect
 
 
 def get_logger() -> logging.Logger:
