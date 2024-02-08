@@ -5,14 +5,10 @@ Regex-ing ->
     The function uses regex to replace the equivalent\
      of items in the fields list
 """
-try:
-    import mysql.connector
-except Exception as e:
-    print(e)
+import mysql.connector
 from typing import List
 import re
 import os
-
 import logging
 
 
@@ -43,6 +39,7 @@ class RedactingFormatter(logging.Formatter):
 PII_FIELDS = ('name', 'email', 'ssn', 'password',
               'ip', 'last_login', 'user_agent')
 
+
 def get_db():
     """conncet to db
     """
@@ -58,6 +55,7 @@ def get_db():
         return connection
     except Exception as e:
         logging.exception("An error occurred: %s", e)
+
 
 def get_logger() -> logging.Logger:
     """create a logger named user_data and sends output to the console
