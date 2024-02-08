@@ -5,11 +5,11 @@ Regex-ing ->
     The function uses regex to replace the equivalent\
      of items in the fields list
 """
-import mysql.connector
 from typing import List
 import re
 import os
 import logging
+import mysql.connector
 
 
 class RedactingFormatter(logging.Formatter):
