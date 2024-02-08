@@ -76,3 +76,30 @@ def filter_datum(fields: List[str],
         message = re.sub(f'{field}=(.*?){separator}',
                          f'{field}={redaction}{separator}', message)
     return message
+
+
+def main():
+    """
+    gets rows from db
+    """
+    db = get_db()
+    if db.is_connected():
+        query = "SELECT * FROM users;"
+        cursor = connection.cursor()
+
+        cursor.execute(query)
+
+        headers = [field[0] for field in cursor.description]
+        logger = get_logger()
+
+        for row in cursor:
+            info_answer = ''
+            for f, p in zip(row, headers):
+                info_answer += f'{p}={(f)}; '
+            logger.info(info_answer)
+
+        cursor.close()
+        db.close()
+
+if __name__ == "__main_":
+    main()
