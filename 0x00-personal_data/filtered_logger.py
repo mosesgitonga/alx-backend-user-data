@@ -41,10 +41,9 @@ PII_FIELDS = ('name', 'email', 'ssn', 'password',
 
 
 def get_db():
-    """conncet to db
+    """connceting  to db  using env variables
     """
     logging.basicConfig(level=logging.DEBUG)
-
     try:
         connection = mysql.connector.connect(
             user=os.getenv('PERSONAL_DATA_DB_USERNAME'),
