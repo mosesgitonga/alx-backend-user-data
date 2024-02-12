@@ -13,6 +13,13 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+@app.errorhandler(403)
+def forbidden(error) -> str:
+    """
+    handler for forbiden page
+    """
+    return jsonify({"error": "Forbidden"})
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
