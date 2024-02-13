@@ -5,7 +5,7 @@ from flask import jsonify, abort
 from api.v1.views import app_views
 
  
-@app_views.route('/forbidden')
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden() -> str:
   """
   abort message
