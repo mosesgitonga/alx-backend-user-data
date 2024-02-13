@@ -23,11 +23,8 @@ class Auth():
         
         if excluded_paths is None or excluded_paths == []:
             return True
-        
-        
+
         normalized_path = path.rstrip('/')
-        
-        # Check if the normalized path is in the list of excluded paths
         for excluded_path in excluded_paths:
             normalized_excluded_path = excluded_path.rstrip('/')
             if normalized_path == normalized_excluded_path:
@@ -36,7 +33,6 @@ class Auth():
         return True
         
         
-
     def authorization_header(self, request=None) -> str:
         """
         header for authorization
