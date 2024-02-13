@@ -21,7 +21,7 @@ class Auth():
         if path is None:
             return True
         
-        if excluded_paths is None or excluded_paths == []:
+        if excluded_paths is No['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']ne or excluded_paths == []:
             return True
 
         normalized_path = path.rstrip('/')
@@ -37,7 +37,13 @@ class Auth():
         """
         header for authorization
         """
-        return None
+        if request is None:
+            return None
+
+        if 'Authorization' not in request.headers:
+            return None
+
+        return request.header['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
