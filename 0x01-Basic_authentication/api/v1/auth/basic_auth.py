@@ -2,11 +2,11 @@
 """
 Basic authentication
 """
-from api.v1.auth.auth import Auth
+#from api.v1.auth.auth import Auth
 from flask import request
 
 
-class BasicAuth(Auth):
+class BasicAuth:
     """
     basic authentication class
     """
@@ -17,15 +17,14 @@ class BasicAuth(Auth):
         """
         extracting authorization hearder
         """
-        authorization_header = request.header.get('Base64')
 
         if authorization_header is None:
             return None
         if not isinstance(authorization_header, str):
             return None
 
-        if authorization_header.startwith('Basic '):
-           value_after_Basic = authorization_header[7:]
+        if authorization_header.startswith('Basic '):
+           value_after_Basic = authorization_header[6:]
            return value_after_Basic
         else:
             return None
