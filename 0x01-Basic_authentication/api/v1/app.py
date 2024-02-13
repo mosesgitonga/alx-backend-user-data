@@ -18,7 +18,7 @@ def forbidden(error) -> str:
     """
     handler for forbiden page
     """
-    return jsonify({"error": "Forbidden"})
+    return jsonify({"error": "Forbidden"}), 403
 
 
 @app.errorhandler(404)
@@ -32,7 +32,7 @@ def unauthorized(error) -> str:
     """
     unauthorized page
     """
-    return jsonify({"error": "Unauthorized"})
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 
