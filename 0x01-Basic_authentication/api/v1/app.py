@@ -42,7 +42,7 @@ def unauthorized(error) -> str:
     """
     return jsonify({"error": "Unauthorized"}), 401
 
-@before_request
+@app.before_request
 def user_authorization():
     """user authentication
     """
