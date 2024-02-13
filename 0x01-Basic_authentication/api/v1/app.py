@@ -22,6 +22,8 @@ if auth_type == 'auth':
     auth = Auth()
 elif auth_type == 'basic_auth':
     auth = BasicAuth()
+else:
+    print('no such auth type')
 
 
 @app.errorhandler(403)
