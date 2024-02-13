@@ -50,3 +50,7 @@ class Auth():
         current user 
         """
         return None
+
+class BasicAuth(Auth):
+    def __init__(self):
+        pass
