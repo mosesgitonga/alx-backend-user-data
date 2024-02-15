@@ -41,12 +41,14 @@ def not_found(error) -> str:
     """
     return jsonify({"error": "Not found"}), 404
 
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """
     unauthorized page
     """
     return jsonify({"error": "Unauthorized"}), 401
+
 
 @app.before_request
 def user_authorization():
@@ -65,16 +67,22 @@ def user_authorization():
         return
     # If auth.authorization_header(request) and auth.session_cookie(request)
     # return None, raise the error, 401 - you must use abort
+
+    if auth.authorization_header(request) and auth.session_cookie(request):
+        return None
+    else:
+        abort(401)
+
     auth_header = auth.authorization_header(request)
-   
+
     # If auth.current_user(request) returns None, raise the error 403 - you
     # must use abort
     user = auth.current_user(request)
     if user is None:
         abort(403)
-   
+
     request.current_user = user
-        
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
