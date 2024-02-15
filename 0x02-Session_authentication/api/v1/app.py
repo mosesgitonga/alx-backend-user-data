@@ -68,7 +68,7 @@ def user_authorization():
     # If auth.authorization_header(request) and auth.session_cookie(request)
     # return None, raise the error, 401 - you must use abort
 
-    if auth.authorization_header(request) and auth.session_cookie(request):
+    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
         return None
     else:
         abort(401)
