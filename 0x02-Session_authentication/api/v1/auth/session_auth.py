@@ -30,6 +30,15 @@ class SessionAuth(Auth):
 
         return session_id
 
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """
+        returns user_id by  getting userid from the dictionary attribute
+        """
+        if session_id is None and not isinstance(session_id, str):
+            return None
+        user_id = self.user_id_by_session_id.get(session_id, None)
+        return user_id
+
 
 if __name__ == '__main__':
     session_auth = SessionAuth()
