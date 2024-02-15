@@ -11,7 +11,6 @@ from api.v1.views import app_views
 from models.user import User
 
 
-
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_auth_login() -> Tuple[str, int]:
     """POST /api/v1/auth_session/login.
@@ -45,3 +44,20 @@ def session_auth_login() -> Tuple[str, int]:
     response.set_cookie(os.getenv("SESSION_NAME"), session_id)
     # Return the response with the User and the cookie
     return response
+
+
+@app_views.route(
+    '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def session_auth_logout():
+    """DELETE /api/v1/auth_session/logout
+
+    Returns:
+        - An empty JSON object.
+    """
+    # You must use auth.destroy_session(request) for deleting the Session ID
+    is_destroyed = auth.destroy_session(request)
+    # If destroy_session returns False, abort(404)
+    if not is_destroyed:
+        abort(404)
+    # Otherwise, return an empty JSON dictionary with the status code 200
+    return jsonify({}), 200
