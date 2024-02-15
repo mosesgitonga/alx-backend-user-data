@@ -7,9 +7,10 @@ from flask import request
 import base64
 from typing import TypeVar, List
 from models.user import User
+from api.v1.auth.auth import Auth
 
 
-class BasicAuth:
+class BasicAuth(Auth):
     """
     basic authentication class
     """
@@ -115,34 +116,4 @@ class BasicAuth:
         user = self.user_object_from_credentials(email, pwd)
 
         return user
-        
-    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """
-        authentcation request
-        """
-
-        if path is None:
-            return True
-        
-        if excluded_paths is ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'] or excluded_paths == []:
-            return True
-
-        normalized_path = path.rstrip('/')
-        for excluded_path in excluded_paths:
-            normalized_excluded_path = excluded_path.rstrip('/')
-            if normalized_path == normalized_excluded_path:
-                return False
-
-        return True
-
-    def authorization_header(self, request=None) -> str:
-        """
-        header for authorization
-        """
-        if request is None:
-            return None
-
-        if 'Authorization' not in request.headers:
-            return None
-
-        return request.headers.get('Authorization', None) 
+  
