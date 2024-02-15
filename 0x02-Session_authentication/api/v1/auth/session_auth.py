@@ -3,6 +3,7 @@
 session authentication
 """
 from api.v1.auth.auth import Auth
+from models.user import User
 from uuid import uuid4
 import os
 
@@ -40,6 +41,18 @@ class SessionAuth(Auth):
         user_id = self.user_id_by_session_id.get(session_id, None)
         return user_id
 
+    def current_user(self, request=None):
+        """
+        returns the user id of the current user
+        """
+        # Retrieve the value of the _my_session_id cookie from the request
+        session_id = self.session_cookie(request)
+        # Look up the corresponding User ID based on the session_id
+        user_id = self.user_id_for_session_id(session_id)
+        # Retrieve the User instance from the database based on the user_id
+        user = User.get(user_id)
+        # Return the User instance
+        return user
 
 if __name__ == '__main__':
     session_auth = SessionAuth()
