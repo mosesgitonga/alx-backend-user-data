@@ -4,7 +4,7 @@ contains class for authentication
 """
 from typing import List, TypeVar
 from flask import request
-import os 
+import os
 
 
 class Auth():
@@ -13,7 +13,7 @@ class Auth():
     """
     def __init__(self):
         pass
-    
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         authentcation request
@@ -21,8 +21,12 @@ class Auth():
 
         if path is None:
             return True
-        
-        if excluded_paths is ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'] or excluded_paths == []:
+
+        if excluded_paths is [
+                             '/api/v1/status/',
+                             '/api/v1/unauthorized/',
+                             '/api/v1/forbidden/'
+                             ] or excluded_paths == []:
             return True
 
         normalized_path = path.rstrip('/')
@@ -32,8 +36,7 @@ class Auth():
                 return False
 
         return True
-        
-        
+
     def authorization_header(self, request=None) -> str:
         """
         header for authorization
@@ -48,7 +51,7 @@ class Auth():
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        current user 
+        current user
         """
         return None
 
