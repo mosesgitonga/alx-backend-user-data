@@ -4,6 +4,7 @@ Route module for the API
 """
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
+from api.v1.auth.session_auth import SessionAuth
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
@@ -22,6 +23,8 @@ if auth_type == "basic_auth":
     auth = BasicAuth()
 elif auth_type == 'auth':
     auth = Auth()
+elif auth_type == 'session_auth':
+    auth = SessionAuth()
 
 
 @app.errorhandler(403)
@@ -63,15 +66,13 @@ def user_authorization():
     # If auth.authorization_header(request) and auth.session_cookie(request)
     # return None, raise the error, 401 - you must use abort
     auth_header = auth.authorization_header(request)
-    #session_cookie = auth.session_cookie(request)
-    if auth_header is None and session_cookie is None:
-        abort(401)
+   
     # If auth.current_user(request) returns None, raise the error 403 - you
     # must use abort
     user = auth.current_user(request)
     if user is None:
         abort(403)
-    # Assign the result of auth.current_user(request) to request.current_user
+   
     request.current_user = user
         
 
