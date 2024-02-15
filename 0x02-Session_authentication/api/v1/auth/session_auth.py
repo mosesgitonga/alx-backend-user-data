@@ -16,6 +16,9 @@ class SessionAuth(Auth):
         pass
 
     def create_session(self, user_id: str = None) -> str:
+        """
+        creating a session and storing the user_id a session
+        """
         if user_id is None:
             return None
 
