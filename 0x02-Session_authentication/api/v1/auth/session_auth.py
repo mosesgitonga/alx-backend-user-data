@@ -54,6 +54,7 @@ class SessionAuth(Auth):
         # Return the User instance
         return user
 
+
 if __name__ == '__main__':
     session_auth = SessionAuth()
     print(session_auth)
