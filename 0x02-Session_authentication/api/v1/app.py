@@ -70,9 +70,8 @@ def user_authorization():
 
     if auth.authorization_header(request) is None \
             and auth.session_cookie(request) is None:
-        return None
-    else:
-        abort(401)
+        return None, abort(401)
+
 
     auth_header = auth.authorization_header(request)
 
