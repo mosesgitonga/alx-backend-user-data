@@ -72,7 +72,6 @@ def user_authorization():
             and auth.session_cookie(request) is None:
         return None, abort(401)
 
-
     auth_header = auth.authorization_header(request)
 
     # If auth.current_user(request) returns None, raise the error 403 - you
