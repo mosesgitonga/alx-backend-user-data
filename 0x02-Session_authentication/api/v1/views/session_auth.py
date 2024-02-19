@@ -13,7 +13,9 @@ from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_auth_login():
-
+    """
+    session authentication login
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     # If email is missing, return a JSON response with the status code 400
