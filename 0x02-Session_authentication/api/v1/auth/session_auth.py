@@ -54,6 +54,27 @@ class SessionAuth(Auth):
         # Return the User instance
         return user
 
+    def destroy_session(self, request=None):
+        """
+        destroys a session
+        """
+        if request is None:
+            return False
+        if self.session_cookie(request) not in request:
+            return False
+
+        if not self.user_id_for_session_id(self.session_cookie(request)):
+            return False
+
+        if not user_id:
+            return False
+
+        try:
+            del self.user_id_by_session_id[session_id]
+        except Exception:
+            pass
+
+        return True
 
 if __name__ == '__main__':
     session_auth = SessionAuth()

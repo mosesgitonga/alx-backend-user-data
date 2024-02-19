@@ -68,3 +68,16 @@ def session_auth_logout():
         abort(404)
     # Otherwise, return an empty JSON dictionary with the status code 200
     return jsonify({}), 200
+
+@app_views.route('DELETE /api/v1/auth_session/logout', strict_slashes=False)
+def logout():
+    """
+    logout from session
+    """
+    from api.v1.app import auth
+    deleted = auth.destroy_session(request)
+
+    if not deleted:
+        abort(404)
+
+    return jsonify({}), 200
