@@ -59,12 +59,12 @@ class DB:
 
         return user
 
-    def update_user(self, user_id: int, **kwargs)-> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
         updating user
 
         Args:
-            user_id -> To find the user who will be updated 
+            user_id -> To find the user who will be updated
             kwargs -> key, value of data which will be updated
         return:
             None
@@ -80,6 +80,5 @@ class DB:
             if key not in column_names:
                 raise ValueError
             new_values[key] = value
-            
             self._session.query(User).filter_by(id=user_id).update(new_values)
         self._session.commit()
