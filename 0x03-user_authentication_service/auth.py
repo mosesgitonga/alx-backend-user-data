@@ -4,6 +4,7 @@ User authentication
 """
 import bcrypt
 
+
 def _hash_password(password: str) -> bytes:
     """
     hashes a passwrd by adding some salt :)
