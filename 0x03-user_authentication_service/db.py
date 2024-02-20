@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.exc import NoResultFound, InvalidRequestError
 from user import Base, User
 
 
@@ -43,14 +43,18 @@ class DB:
         """
         return first row of user table
         """
-        try:
-            user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                return 'err'
-            return user
-        except NoResultFound as e:
-            raise NoResultFound('Not found')
-        except InvalidRequestError as e:
-            raise InvalidRequestError("Invalid")
-        except Exception as e:
-            return e
+        if not kwargs:
+            raise InvalidRequestError
+
+        column_names = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
+        for key in kwargs.keys():
+            if key not in column_names:
+                raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if user is None:
+            raise NoResultFound
+
+        return user            
+
