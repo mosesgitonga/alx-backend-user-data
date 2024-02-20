@@ -74,7 +74,7 @@ class DB:
             return 'user not present in db'
 
         new_values = {}
-        column_names = User.__table__.column.keys()
+        column_names = User.__table__.columns.keys()
 
         for key, value in kwargs.items():
             if key not in column_names:
