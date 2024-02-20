@@ -58,3 +58,24 @@ class DB:
             raise NoResultFound
 
         return user
+
+    def update_user(self, user_id: int, **kwargs)-> None:
+        """
+        updating user
+
+        Args:
+            user_id -> To find the user who will be updated 
+            kwargs -> key, value of data which will be updated
+        return:
+            None
+        """
+        user = self.find_user_by(id=user_id)
+        if user is None:
+            return 'user not present in db'
+
+        new_values = {}
+        for key, value in kwargs.items():
+            new_values[key] = value
+            
+            self._session.query(User).filter_by(id=user_id).update(new_values)
+        self._session.commit()
