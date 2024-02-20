@@ -74,7 +74,11 @@ class DB:
             return 'user not present in db'
 
         new_values = {}
+        column_names = User.__table__.column.keys()
+
         for key, value in kwargs.items():
+            if key not in column_names:
+                raise ValueError
             new_values[key] = value
             
             self._session.query(User).filter_by(id=user_id).update(new_values)
