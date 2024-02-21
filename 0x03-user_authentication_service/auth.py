@@ -24,7 +24,6 @@ class Auth:
         return:
             returns the user object
         """
-        db = self._db._session
         try:
             existing_user = self._db.find_user_by(email=email)
 

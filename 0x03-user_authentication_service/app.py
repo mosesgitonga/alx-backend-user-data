@@ -15,9 +15,9 @@ def welcome() -> str:
     """
     return jsonify({"message": "Bienvenue"})
 
-@app.route('/users/<email>/<password>', methods=['POST'])
-def register_user(email, passowrd):
-    
+#@app.route('/users/<email>/<password>', methods=['POST'])
+#def register_user(email, passowrd):
+
 
 
 if __name__ == "__main__":
