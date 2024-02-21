@@ -31,9 +31,8 @@ class Auth:
             if existing_user is not None:
                 raise ValueError('User {} already exists'.format(email))
         except NoResultFound:
-            pass
-        password = _hash_password(password)
-        return self._db.add_user(email, password)
+            password = _hash_password(password)
+            return self._db.add_user(email, password)
 
 
 def _hash_password(password: str) -> bytes:

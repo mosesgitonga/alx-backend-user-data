@@ -3,7 +3,9 @@
 flask app
 """
 from flask import Flask, jsonify
+from auth import Auth
 app = Flask(__name__)
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'])
@@ -12,6 +14,10 @@ def welcome() -> str:
     returns simple message
     """
     return jsonify({"message": "Bienvenue"})
+
+@app.route('/users/<email>/<password>', methods=['POST'])
+def register_user(email, passowrd):
+    
 
 
 if __name__ == "__main__":
