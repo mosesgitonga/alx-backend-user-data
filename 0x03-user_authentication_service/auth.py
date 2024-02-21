@@ -9,7 +9,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 
 
-def _generate_uuid(self) -> str:
+def _generate_uuid() -> str:
     """
     return a string representation of a new uuid
     """
