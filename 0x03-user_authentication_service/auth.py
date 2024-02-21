@@ -9,6 +9,27 @@ from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 
 
+def _generate_uuid(self) -> str:
+    """
+    return a string representation of a new uuid
+    """
+    uuid = str(uuid4())
+    return uuid
+
+
+def _hash_password(password: str) -> bytes:
+    """
+    hashes a passwrd by adding some salt :)
+    args:
+        password -> password to be hashed
+    return:
+        bytes -> hashed password
+    """
+    passwd_bytes = password.encode('utf-8')
+    hashed_password = bcrypt.hashpw(passwd_bytes, bcrypt.gensalt())
+    return hashed_password
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -54,23 +75,3 @@ class Auth:
             return True
         else:
             return False
-
-    def _generate_uuid(self) -> str:
-        """
-        return a string representation of a new uuid
-        """
-        uuid = str(uuid4())
-        return uuid
-
-
-def _hash_password(password: str) -> bytes:
-    """
-    hashes a passwrd by adding some salt :)
-    args:
-        password -> password to be hashed
-    return:
-        bytes -> hashed password
-    """
-    passwd_bytes = password.encode('utf-8')
-    hashed_password = bcrypt.hashpw(passwd_bytes, bcrypt.gensalt())
-    return hashed_password
