@@ -5,7 +5,7 @@ User authentication
 import bcrypt
 from db import DB
 from user import User
-
+from sqlalchemy.orm.exc import NoResultFound
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -24,13 +24,17 @@ class Auth:
             returns the user object
         """
         db = self._db._session
-        existing_user = db.query(User).filter_by(email=email).first()
+        try:
+            existing_user = self._db.find_user_by(email=email)
 
-        if existing_user:
-            raise ValueError('User {} already exists'.format(email))
-
+            if existing_user is not None:
+                raise ValueError('User {} already exists'.format(email))
+        except NoResultFound:
+            pass
+        
         password = _hash_password(password)
         self._db.add_user(email, password)
+
 
 
 def _hash_password(password: str) -> bytes:

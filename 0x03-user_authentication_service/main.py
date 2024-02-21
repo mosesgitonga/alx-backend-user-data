@@ -3,7 +3,6 @@
 Main file
 """
 from auth import Auth
-from user import User
 
 email = 'me@me.com'
 password = 'mySecuredPwd'
