@@ -4,10 +4,10 @@ flask app
 """
 from flask import Flask, jsonify
 app = Flask(__name__)
-app.route('/', methods=['GET'], strict_slashes=False)
 
 
-def form():
+app.route('/', methods=['GET'])
+def welcome() -> str:
     """
     returns simple message
     """
