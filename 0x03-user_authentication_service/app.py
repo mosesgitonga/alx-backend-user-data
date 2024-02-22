@@ -2,7 +2,7 @@
 """
 flask app
 """
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, redirect, url_for
 from auth import Auth
 from db import DB
 app = Flask(__name__)
@@ -54,6 +54,24 @@ def login():
     response.set_cookie('session_id', session_id)
 
     return response
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """
+    logout
+    """
+    try:
+        session_id = request.form['session_id']
+    except KeyError as e:
+        abort(400)
+
+    user = db.find_user_by(session_id=session_id)
+    if user:
+        AUTH.destroy_session(session_id)
+        redirect(url_for('/'))
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
