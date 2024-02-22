@@ -142,11 +142,11 @@ class Auth:
         """
         updating the passowrd through the reset_token
         """
-        try:
-            user = self._db.find_user_by(reset_token=reset_token)
-        except ValueError:
-            raise ValueError
+        user = self._db.find_user_by(reset_token=reset_token)
 
+        if user is None:
+            raise ValueError
+            
         hashed_password = _hash_password(password)
         user.hashed_password = hashed_password
         user.reset_token = None
