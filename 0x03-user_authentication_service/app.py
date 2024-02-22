@@ -57,23 +57,23 @@ def login():
 
 
 @app.route('/sessions', methods=['DELETE'])
-def logout():
+def logout() -> str:
     """
     logout
     """
-    try:
-        session_id = request.cookies.get('session_id')
-        if not session_id:
-            raise KeyError('session id not found in cookies')
-    except KeyError as e:
-        abort(400)
+    session_id = request.cookies.get('session_id')
+
+    if session_id is None:
+        abort(403)
 
     user = db.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(session_id)
-        return redirect('/')
-    else:
+    
+    if user is None:
         abort(403)
+        
+    AUTH.destroy_session(session_id)
+    return redirect('/')
+    
 
 
 if __name__ == "__main__":
