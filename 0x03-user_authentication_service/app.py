@@ -66,7 +66,7 @@ def logout():
     except KeyError as e:
         abort(400)
 
-    user = db.find_user_by(session_id=session_id)
+    user = db.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(session_id)
         redirect(url_for('index'))
