@@ -73,6 +73,7 @@ def logout() -> str:
     AUTH.destroy_session(user.id)
     return redirect('/')
 
+
 @app.route('/profile', methods=['GET'])
 def profile():
     session_id = request.cookies.get('session_id', None)
