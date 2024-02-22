@@ -66,7 +66,7 @@ def logout() -> str:
     if session_id is None:
         abort(403)
 
-    user = db.get_user_from_session_id(session_id)
+    user = AUTH.get_user_from_session_id(session_id)
     
     if user is None:
         abort(403)
