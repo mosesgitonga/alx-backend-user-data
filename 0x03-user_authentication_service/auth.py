@@ -134,6 +134,9 @@ class Auth:
             user = self._db.find_user_by(email=email)
             token = str(uuid4())
             user.reset_token = token
-            return token
+            return user.reset_token
         except ValueError:
             raise ValueError
+
+   # def update_user(self, reset_token: str, password: str) -> None:
+        
