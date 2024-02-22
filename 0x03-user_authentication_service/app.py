@@ -62,7 +62,9 @@ def logout():
     logout
     """
     try:
-        session_id = request.form['session_id']
+        session_id = request.cookies.get('session_id')
+        if not session_id:
+            raise KeyError('session id not found in cookies')
     except KeyError as e:
         abort(400)
 
